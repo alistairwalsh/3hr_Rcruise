@@ -22,15 +22,12 @@ groups <- Cytokines$Group
 groups[grep("Control", groups)] <- "Control"
 groups[grep("Treated", groups)] <- "Treated"
 
-# Perform T Test
-IL17F_TTest <- t.test(Cytokines$IL17F ~groups)
-IL17A_TTest <- t.test(Cytokines$IL17A ~groups)
-
-# Perform Multiple T Tests at once
-Cytokines_TTests <- lapply(1:dim(log2Cytokines)[2], function(i) {t.test(log2Cytokines[,i] ~groups)})
-Cytokines_TTests
-names(Cytokines_TTests) <- colnames(Cytokines[,c(3:4)])
-Cytokines_TTests
+# ANOVA
+fit <- lapply(1:dim(log2Cytokines)[2], function(i){
+  aov(log2Cytokines[,i] ~ groups)
+})
+names(fit) <- colnames(Cytokines[, c(3:4)])
+fit
 
 # Plot Data
 
@@ -185,3 +182,9 @@ groups <- Cytokines$Group
 groups[grep("Control", groups)] <- "Control"
 groups[grep("Treated", groups)] <- "Treated"
 
+# ANOVA
+fit <- lapply(1:dim(log2Cytokines)[2], function(i){
+  aov(log2Cytokines[,i] ~ groups)
+})
+names(fit) <- colnames(Cytokines[, c(3:4)])
+fit
