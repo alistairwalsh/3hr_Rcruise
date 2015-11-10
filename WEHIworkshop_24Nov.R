@@ -2,10 +2,10 @@
 
 # Example Dataset saved as "Cytokines_24Nov.csv"
 # Import Data
-read.csv(file="/Users/keeble.j/Desktop/Cytokines_24Nov.csv", header = TRUE)
+read.csv(file="Cytokines_24Nov.csv", header = TRUE)
 
 # store dataset in R
-rawCytokines <- read.csv(file="/Users/keeble.j/Desktop/Cytokines_24Nov.csv", header = TRUE)
+rawCytokines <- read.csv(file="Cytokines_24Nov.csv", header = TRUE)
 
 # transform dataset e.g. log2
 log2Cytokines <- log2(rawCytokines[,c(3,4)])
