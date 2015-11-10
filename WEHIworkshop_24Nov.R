@@ -1,5 +1,7 @@
 # PART 1: R Demo ------------------------------------------------------
 
+# setwd("~/3hr_Rcruise") or wherever the datafile is
+
 # Example Dataset saved as "Cytokines_24Nov.csv"
 # Import Data
 read.csv(file="Cytokines_24Nov.csv", header = TRUE)
