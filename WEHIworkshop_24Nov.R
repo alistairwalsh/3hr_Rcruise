@@ -30,7 +30,43 @@ names(fit) <- colnames(Cytokines[, c(3:4)])
 fit
 
 # Plot Data
+plot(factor(groups),Cytokines$IL17F, ylim =c(0,10))
+barplot(Cytokines)
 
+example("barplot")
+
+plot(factor(groups_WJMilliplex2_3groups), log.nozeros_WJMilliplex2_3groups[,j], ylab = "log.nozeros_WJMilliplex2_3groups", main = "Box and Whisker Plot: Myoglobin, F value = 6.332")
+
+
+# Multivariate Analysis of Cytokines in Two Patient Groups ----------------
+# Example Dataset saved as "Cytokines.csv"
+# Import Data
+rawCytokines <- read.csv(file="/Users/keeble.j/Desktop/Cytokines.csv", header = TRUE)
+
+# transform dataset e.g. log2
+log2Cytokines <- log2(rawCytokines[,-c(1,2)])
+log2Cytokines
+
+# generate final data.frame
+Cytokines <- data.frame(rawCytokines[,c(1:2)], log2Cytokines)
+Cytokines
+
+# Identify the groups (Control,Treated)
+groups <- Cytokines$Group
+groups[grep("Control", groups)] <- "Control"
+groups[grep("Infected", groups)] <- "Infected"
+
+# ANOVA
+fit <- lapply(1:dim(log2Cytokines)[2], function(i){
+  aov(log2Cytokines[,i] ~ groups)
+})
+names(fit) <- colnames(Cytokines[, -c(1:2)])
+fit
+
+# Plot Data
+pairs(Cytokines[,-c(1,2)])
+example(pairs)
+pairs(Cytokines[,-c(1,2)], pch = 21, bg = c("red","blue")[unclass(Cytokines$Group)])
 
 
 
