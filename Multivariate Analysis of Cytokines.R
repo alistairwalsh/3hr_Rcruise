@@ -30,6 +30,17 @@ fit
 pairs(Cytokines[,-c(1,2)])
 example(pairs)
 pairs(Cytokines[,-c(1,2)], pch = 21, bg = c("red","blue")[unclass(Cytokines$Group)])
+pairs(Cytokines[,c(3,4,5,7)], pch = 21, bg = c("red","blue")[unclass(Cytokines$Group)])
+
+par(mfrow=c(1,1))
+boxplot(Cytokines[,-c(1,2)],xlab = "Cytokines", ylab ="log2(conc)")
+
+boxplot
+boxplot(Cytokines[1:5,-c(1,2)], col = "yellow", xlab = "Cytokines", ylab ="log2(conc)")
+boxplot(Cytokines[6:10,-c(1,2)], col = "orange", add=TRUE)
+
+help(boxplot)
+example(boxplot)
 
 
 
@@ -159,31 +170,3 @@ tumor.infiltrating.immune.cells[["cell.numbers"]]
 tumor.infiltrating.immune.cells$cell.numbers
 
 
-# Import Data into R ------------------------------------------------------
-# can use 'Import Dataset' button or type commands:
-read.csv(file="/Users/keeble.j/Desktop/Cytokines_24Nov.csv", header = TRUE)
-
-# store dataset in R
-rawCytokines <- read.csv(file="/Users/keeble.j/Desktop/Cytokines_24Nov.csv", header = TRUE)
-
-# transform dataset e.g. log2
-log2Cytokines <- log2(rawCytokines[,c(3,4)])
-log2Cytokines
-
-# generate final data.frame
-Cytokines <- data.frame(rawCytokines[,c(1:2)], log2Cytokines)
-Cytokines
-
-# Compare the groups
-
-# Identify the groups (Control,Treated)
-groups <- Cytokines$Group
-groups[grep("Control", groups)] <- "Control"
-groups[grep("Treated", groups)] <- "Treated"
-
-# ANOVA
-fit <- lapply(1:dim(log2Cytokines)[2], function(i){
-  aov(log2Cytokines[,i] ~ groups)
-})
-names(fit) <- colnames(Cytokines[, c(3:4)])
-fit
