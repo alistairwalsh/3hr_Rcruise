@@ -2,15 +2,6 @@
 # www.cyclismo.org tutorial -----------------------------------------------
 # http://www.cyclismo.org/tutorial/R/intermediatePlotting.html#print-to-a-file
 
-# Scatter Plots -----------------------------------------------------------
-#note this is using the 'trees91.csv' file
-plot(tree$STBM,tree$LFBM)
-cor(tree$STBM,tree$LFBM)
-#[1] 0.911595
-plot(tree$STBM,tree$LFBM,
-     main="Relationship Between Stem and Leaf Biomass",
-     xlab="Stem Biomass",
-     ylab="Leaf Biomass")
 
 x <- rnorm(10,sd=5,mean=20)
 y <- 2.5*x - 1.0 + rnorm(10,sd=9,mean=0)

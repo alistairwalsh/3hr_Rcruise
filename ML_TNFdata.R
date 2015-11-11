@@ -15,9 +15,10 @@
 # time consuming and many chances of accidental errors (although ML is meticulously careful so not too worried about this for him!)
 
 # Now Let's Try R!
+setwd("~/Documents/r_scripts/3hr_Rcruise")
 
 # Store Raw Data 
-TNF_rawdata <- read.csv(file="/Users/keeble.j/Desktop/MK20151030_TNF.csv", header = FALSE)
+TNF_rawdata <- read.csv(file="data/MK20151030_TNF.csv", header = FALSE)
 TNF_rawdata
 
 # Select Cells of Interest (samples and std curve OD readings)
@@ -30,9 +31,9 @@ TNF_OD
 TNF_conc <- c(2000,1000,500,250,125,62.5,31.25,15.625,7.8125)
 
 # Need to make them numeric!!
-TNF_stdcurve <- data.frame(logTNF_conc, t(TNF_OD[4,])
+TNF_stdcurve <- data.frame(log(TNF_conc), t(TNF_OD[4,]))
 
-plot(log2(TNF_conc),t(TNF_OD[4,]), ylab= "OD Reading", xlim=c(2,15), ylim =c(0,1), main = "TNF Standard Curve")
+plot(log(TNF_conc),t(TNF_OD[4,]), ylab= "OD Reading", xlim=c(2,15), ylim =c(0,1), main = "TNF Standard Curve")
 cor(log2(TNF_conc),t(TNF_OD[4,]))
 help(plot)
 
