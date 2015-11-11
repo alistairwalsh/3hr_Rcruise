@@ -1,0 +1,27 @@
+\documentclass{article}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+<<echo=FALSE>>=
+setwd("~/Documents/neuralcode/3hr_Rcruise")
+rawCytokines <- read.csv(file="data/Cytokines.csv", header = TRUE)
+# transform dataset e.g. log2
+log2Cytokines <- log2(rawCytokines[,c(3,4)])
+# generate final data.frame
+Cytokines <- data.frame(rawCytokines[,c(1:2)], log2Cytokines)
+# Identify the groups (Control,Treated)
+groups <- Cytokines$Group
+groups[grep("Control", groups)] <- "Control"
+groups[grep("Treated", groups)] <- "Infected"
+@
+
+<<echo=false,fig=TRUE>>=
+boxplot(Cytokines[,-c(1,2)])
+@
+
+
+
+
+
+
+\end{document}

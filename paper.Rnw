@@ -1,0 +1,61 @@
+\documentclass[12pt,a4paper,twocolumn]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Alistair Walsh}
+\title{Cytokine profiles during infection}
+
+\begin{document}
+
+\maketitle
+\SweaveOpts{concordance=TRUE}
+
+\section*{William Shakespeare Quotes - Plagiarism!}
+The words and quotes of the William Shakespeare can be found everywhere! Shakespearean quotations can be heard on the radio and television on a daily basis. The advertising media love to make use of William Shakespeare quotes and sayings. Famous authors have even used Shakespearean quotations as titles for their books such Aldous Huxley and 'Brave New World'. And speaking of famous authors did you know that "What the dickens" was one of the quotes used by William Shakespeare, long before Charles Dickens was born? Other famous Shakespearean quotations such as "I'll not budge an inch", "We have seen better days" ,"A dish fit for the gods" are all used frequently and, almost as a parody, the expression it's "Greek to me" is often used to describe a frustrated student's view of Shakespeare's work! Politicians dig deep into their pool of William Shakespeare quotes and quotations such as "Fair Play", "Foregone Conclusion ", "One Fell Swoop", and "Into Thin Air ". Furthermore, other Shakespearean quotes such as "to thine own self be true" have become widely spoken pearls of wisdom. So quotes from William Shakespeare have now become household words and sayings - and just to emphasise the point "household word" is also one of the Bard's 'anonymous' quotations!
+
+
+
+
+
+<<echo=FALSE>>=
+setwd("~/Documents/neuralcode/3hr_Rcruise")
+# Multivariate Analysis of Cytokines in Two Patient Groups ----------------
+# Example Dataset saved as "Cytokines.csv"
+
+# Import Data
+rawCytokines <- read.csv(file="data/Cytokines.csv", header = TRUE)
+
+# transform dataset e.g. log2
+log2Cytokines <- log2(rawCytokines[,-c(1,2)])
+
+
+# generate final data.frame
+Cytokines <- data.frame(rawCytokines[,c(1:2)], log2Cytokines)
+
+
+# Identify the groups (Control,Treated)
+groups <- Cytokines$Group
+groups[grep("Control", groups)] <- "Control"
+groups[grep("Infected", groups)] <- "Infected"
+
+@
+
+
+\begin{figure}[h]
+
+
+<<echo=false,fig=True,width=4, height=3>>=
+boxplot(Cytokines)
+@
+\end{figure}
+
+
+
+\section*{Conclusion}
+Shakespearean quotations such as "To be, or not to be" and "O Romeo, Romeo! wherefore art thou Romeo?" form some of literature's most celebrated lines and if asked to recite one of Shakespeare's most famous quotations the majority of people would choose one of these. However, many expressions that we use every day originated in Shakespeare's plays. We use the Bard's words all of the time in everyday speech, however, we are often totally unaware that we are 'borrowing' sayings from his work! Will Shake-speare is attributed with writing 38 plays, Famous Shakespearean sonnets and 5 other poems and used about 21,000 different words. Shake-speare is credited by the Oxford English Dictionary with the introduction of nearly 3,000 words into the language. It's no wonder that expressions from his works are an 'anonymous' part of the English language.
+
+
+\end{document}
