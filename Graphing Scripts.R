@@ -58,8 +58,9 @@ wData <- uData + 2*vData + rnorm(20,sd=0.5)
 xData <- -2*uData+rnorm(20,sd=0.1)
 yData <- 3*vData+rnorm(20,sd=2.5)
 d <- data.frame(u=uData,v=vData,w=wData,x=xData,y=yData)
-pairs(d)
+pairs(d, pch = 21, bg = c("red","blue"))
 
+example(pairs)
 
 # Shaded Areas ------------------------------------------------------------
 par(mfrow=c(1,1))
