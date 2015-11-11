@@ -1,52 +1,10 @@
-# PART 1: R Demo ------------------------------------------------------
-
-# setwd("~/3hr_Rcruise") or wherever the datafile is
-
-# Example Dataset saved as "Cytokines_24Nov.csv"
-# Import Data
-read.csv(file="Cytokines_24Nov.csv", header = TRUE)
-
-# store dataset in R
-rawCytokines <- read.csv(file="Cytokines_24Nov.csv", header = TRUE)
-
-# transform dataset e.g. log2
-log2Cytokines <- log2(rawCytokines[,c(3,4)])
-log2Cytokines
-
-# generate final data.frame
-Cytokines <- data.frame(rawCytokines[,c(1:2)], log2Cytokines)
-Cytokines
-
-# Compare the groups
-
-# Identify the groups (Control,Treated)
-groups <- Cytokines$Group
-groups[grep("Control", groups)] <- "Control"
-groups[grep("Treated", groups)] <- "Treated"
-
-# ANOVA
-fit <- lapply(1:dim(log2Cytokines)[2], function(i){
-  aov(log2Cytokines[,i] ~ groups)
-})
-names(fit) <- colnames(Cytokines[, c(3:4)])
-fit
-
-# Plot Data
-plot(factor(groups),Cytokines$IL17F, ylim =c(0,10))
-barplot(Cytokines)
-
-example("barplot")
-
-plot(factor(groups_WJMilliplex2_3groups), log.nozeros_WJMilliplex2_3groups[,j], ylab = "log.nozeros_WJMilliplex2_3groups", main = "Box and Whisker Plot: Myoglobin, F value = 6.332")
-
-
-
-
 # Multivariate Analysis of Cytokines in Two Patient Groups ----------------
+
 # Example Dataset saved as "Cytokines.csv"
 setwd("~/Documents/r_scripts/3hr_Rcruise")
+
 # Import Data
-rawCytokines <- read.csv(file="/Users/keeble.j/Desktop/Cytokines.csv", header = TRUE)
+rawCytokines <- read.csv(file="data/Cytokines.csv", header = TRUE)
 
 # transform dataset e.g. log2
 log2Cytokines <- log2(rawCytokines[,-c(1,2)])
@@ -56,7 +14,7 @@ log2Cytokines
 Cytokines <- data.frame(rawCytokines[,c(1:2)], log2Cytokines)
 Cytokines
 
-# Identify the groups (Control,Treated)
+# Identify the groups (Control,Infected)
 groups <- Cytokines$Group
 groups[grep("Control", groups)] <- "Control"
 groups[grep("Infected", groups)] <- "Infected"
