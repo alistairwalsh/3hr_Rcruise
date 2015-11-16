@@ -18,6 +18,7 @@ Cytokines
 groups <- Cytokines$Group
 groups[grep("Control", groups)] <- "Control"
 groups[grep("Infected", groups)] <- "Infected"
+groups <- factor(groups)
 
 # ANOVA
 fit <- lapply(1:dim(log2Cytokines)[2], function(i){
@@ -28,19 +29,22 @@ fit
 
 # Plot Data
 pairs(Cytokines[,-c(1,2)])
-example(pairs)
-pairs(Cytokines[,-c(1,2)], pch = 21, bg = c("red","blue")[unclass(Cytokines$Group)])
-pairs(Cytokines[,c(3,4,5,7)], pch = 21, bg = c("red","blue")[unclass(Cytokines$Group)])
+#example(pairs)
+pairs(Cytokines[,-c(1,2)], pch = 21, bg = c("dark green","orange")[unclass(Cytokines$Group)])
+pairs(Cytokines[,c(3,4,5,7)], pch = 21, bg = c("dark green","orange")[unclass(Cytokines$Group)])
 
 par(mfrow=c(1,1))
-boxplot(Cytokines[,-c(1,2)],xlab = "Cytokines", ylab ="log2(conc)")
+boxplot(Cytokines[,-c(1,2)])
+boxplot(Cytokines[,-c(1,2)],xlab = "Cytokines", ylab ="log2(conc)", main = "Cytokine profiles during X infection")
 
-boxplot
-boxplot(Cytokines[1:5,-c(1,2)], col = "yellow", xlab = "Cytokines", ylab ="log2(conc)")
-boxplot(Cytokines[6:10,-c(1,2)], col = "orange", add=TRUE)
+boxplot(subset(Cytokines[,-c(1,2)], groups == "Control"), col = "dark green")
+boxplot(subset(Cytokines[,-c(1,2)], groups == "Infected"), col = "orange", add = TRUE)
 
-help(boxplot)
-example(boxplot)
+boxplot(subset(Cytokines[,-c(1,2)], groups == "Control"), col = "dark green", xlab = "Cytokines", ylab ="log2(conc)", main = "Cytokine profiles during X infection")
+boxplot(subset(Cytokines[,-c(1,2)], groups == "Infected"), col = "orange", add = TRUE)
+
+#help(boxplot)
+#example(boxplot)
 
 
 
